@@ -1,0 +1,33 @@
+{
+  "name": "hash-test",
+  "version": "0.0.1",
+  "description": "Projeto de teste para Hash",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --port 9000 --inline --progress --profile --colors --watch --content-base src/ --mode development",
+    "build": "webpack --config webpack.config.js --mode production"
+  },
+  "author": "Mauricio Grejanin",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/preset-env": "^7.4.1",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/node": "7.0.0",
+    "awesome-typescript-loader": "5.2.0",
+    "css-loader": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "source-map-loader": "0.2.3",
+    "style-loader": "^1.0.0",
+    "tslint": "5.17.0",
+    "tslint-loader": "3.6.0",
+    "typescript": "3.5.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "3.0.8",
+    "webpack-dev-server": "3.1.4"
+  }
+}
