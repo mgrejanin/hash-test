@@ -1,27 +1,32 @@
 <html>
-  <head>
-  </head>
+  <head> </head>
   <body>
     <div class="container">
       <div class="container__left-panel">
         <h2>
           Simule sua Antecipação
         </h2>
-        <form class="form">
+        <form class="form" id="form">
           <div class="form__input-container">
             <label class="input-label">Informe o valor da venda *</label>
-            <input type="text" class="input" required />
+            <input type="text" class="input" required id="input_valor" />
           </div>
 
           <div class="form__input-container">
             <label class="input-label">Em quantas parcelas *</label>
-            <input type="number" class="input" max="12" required />
+            <input
+              type="number"
+              class="input"
+              max="12"
+              required
+              id="input_parcelas"
+            />
             <span class="input-hint">Máximo de 12 parcelas</span>
           </div>
 
           <div class="form__input-container">
             <label class="input-label">Informe o percentual de MDR *</label>
-            <input type="number" class="input" required />
+            <input type="number" class="input" required id="input_mdr" />
           </div>
         </form>
       </div>
@@ -29,10 +34,22 @@
         <h3 class="result__header">
           Você receberá:
         </h3>
-        <p class="result__row">Amanhã: <span class="result__row-value">R$0,00</span></p>
-        <p class="result__row">Em 15 dias: <span class="result__row-value">R$0,00</span></p>
-        <p class="result__row">Em 60 dias: <span class="result__row-value">R$0,00</span></p>
-        <p class="result__row">Em 90 dias: <span class="result__row-value">R$0,00</span></p>
+        <p class="result__row">
+          Amanhã:
+          <span class="result__row-value" id="result_amanha">R$ 0,00</span>
+        </p>
+        <p class="result__row">
+          Em 15 dias:
+          <span class="result__row-value" id="result_15-dias">R$ 0,00</span>
+        </p>
+        <p class="result__row">
+          Em 60 dias:
+          <span class="result__row-value" id="result_30-dias">R$ 0,00</span>
+        </p>
+        <p class="result__row">
+          Em 90 dias:
+          <span class="result__row-value" id="result_90-dias">R$ 0,00</span>
+        </p>
       </div>
     </div>
     <script src="/main.bundle.js"></script>
