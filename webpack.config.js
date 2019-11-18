@@ -1,6 +1,7 @@
 const path = require("path");
 const ROOT = path.resolve(__dirname, "src");
 const DESTINATION = path.resolve(__dirname, "dist");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   context: ROOT,
@@ -56,8 +57,14 @@ module.exports = {
         ]
       }
     ]
-  },
-
+	},
+	plugins: [
+    new HtmlWebpackPlugin({
+			cache: true,
+			title: 'Hash Test',
+			template: './index.html'
+		})
+  ],
   devtool: "cheap-module-source-map",
   devServer: {}
 };

@@ -5,6 +5,7 @@ src/**/*.js.map
 typings
 dist
 coverage
+.awcache
 ts-out
 npm-debug.log
 debug.log

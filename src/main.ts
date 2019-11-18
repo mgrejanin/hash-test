@@ -47,10 +47,9 @@ export class HashTest {
       return;
     }
     let result = this.calcular();
-    this.results.amanha.innerText = result[0];
-    this.results.quinze.innerText = result[1];
-    this.results.trinta.innerText = result[2];
-    this.results.noventa.innerText = result[3];
+    Object.keys(this.results).map((key: string, index: number) => {
+      this.results[key].innerText = result[index];
+    });
   }
 
   currencyFormat(valor: number) {
@@ -84,16 +83,13 @@ export class HashTest {
 
     return periodos.map(periodo => {
       return this.currencyFormat(
-        intervaloDeParcelas
-          .reduce((acc, atual) => {
-            acc.push(
-              (this.formatReal(vlrRecebivel) *
-                (100 - (mdrParsed / 30) * (atual - periodo))) /
-                100
-            );
-            return acc;
-          }, [])
-          .reduce((acc, atual) => (acc += atual), 0)
+        intervaloDeParcelas.reduce((acc, atual) => {
+          acc +=
+            (this.formatReal(vlrRecebivel) *
+              (100 - (mdrParsed / 30) * (atual - periodo))) /
+            100;
+          return acc;
+        }, 0)
       );
     });
   }

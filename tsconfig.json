@@ -2,13 +2,24 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "module": "commonjs",
     "target": "es6",
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
-  },
+	},
+	"awesomeTypescriptLoaderOptions": {
+		"useCache":true,
+		"useBabel": true,
+    "babelOptions": {
+        "babelrc": false,
+        "presets": [
+            ["@babel/preset-env", { "targets": "last 2 versions, ie 11", "modules": false }]
+        ]
+    },
+    "babelCore": "@babel/core",
+},
   "include": [
     "src/**/*"
   ]
