@@ -136,29 +136,6 @@ export class HashMask {
     return this.numberToText(this.textToNumber(value));
   }
 
-  formatToNumber(input: string) {
-    let retorno = '0';
-    let value = this.textToNumber(input);
-
-    if (!isNaN(parseInt(value))) {
-      if (value.length <= this.fractionDigits) {
-        value = this.formatDecimal(value, '0', '.');
-      } else {
-        let lengthWithoutDecimals = value.length - this.fractionDigits;
-        value = value.replace(
-          new RegExp(
-            `(\\d{${lengthWithoutDecimals}})(\\d{${this.fractionDigits}})`
-          ),
-          '$1.$2'
-        );
-      }
-
-      retorno = value;
-    }
-
-    return parseFloat(retorno);
-  }
-
   setMask(element: HTMLInputElement) {
     element.value = this.format(element.value);
 
