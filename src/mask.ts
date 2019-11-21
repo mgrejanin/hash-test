@@ -1,12 +1,12 @@
 export class HashMask {
-  prefix = "R$ ";
+  prefix = 'R$ ';
   fixed = true;
   fractionDigits = 2;
-  decimalSeparator = ",";
-  thousandsSeparator = ".";
+  decimalSeparator = ',';
+  thousandsSeparator = '.';
 
   onlyNumber(value: string) {
-    let retorno = "";
+    let retorno = '';
     for (let i = 0; i < value.length; i++) {
       if (isFinite(parseInt(value[i]))) {
         retorno += value[i];
@@ -20,7 +20,7 @@ export class HashMask {
   }
 
   removingPrefix(value: string) {
-    return value.replace(this.prefix, "");
+    return value.replace(this.prefix, '');
   }
 
   addingCompleterFromStart(value: string, completer: string) {
@@ -32,7 +32,7 @@ export class HashMask {
 
   removingCompleterFromStart(value: string, completer: string) {
     while (value[0] === completer) {
-      value = value.replace(completer, "");
+      value = value.replace(completer, '');
     }
     return value;
   }
@@ -41,15 +41,15 @@ export class HashMask {
     let length = value.length - this.fractionDigits;
 
     let regexpFraction;
-    let decimals = "$1";
+    let decimals = '$1';
     let dezenas = completer;
-    let character = isFinite(parseInt(completer)) ? "d" : "w";
+    let character = isFinite(parseInt(completer)) ? 'd' : 'w';
 
     regexpFraction = `(\\${character}{${this.fractionDigits}})`;
     if (length > 0) {
       regexpFraction = `(\\${character}{${length}})${regexpFraction}`;
       dezenas = decimals;
-      decimals = "$2";
+      decimals = '$2';
     }
 
     return value.replace(
@@ -61,7 +61,7 @@ export class HashMask {
   addingHundredsSeparator(value: string) {
     let size = value.length - this.fractionDigits;
     let hundreds = Math.ceil(size / 3);
-    let regexpHundreds = "(\\d)";
+    let regexpHundreds = '(\\d)';
 
     let replacement = `${this.decimalSeparator}$${hundreds + 1}`;
     for (let i = hundreds; i !== 0; i--) {
@@ -83,7 +83,7 @@ export class HashMask {
   }
 
   removeSeparator(value: string, separator: string) {
-    return value.replace(new RegExp(`\\${separator}`, "g"), "");
+    return value.replace(new RegExp(`\\${separator}`, 'g'), '');
   }
 
   formatDecimal(value: string, completer: string, separator: string) {
@@ -94,7 +94,7 @@ export class HashMask {
 
   textToNumber(input: string) {
     let retorno = input.toString();
-    let completer = this.fixed ? "0" : "_";
+    let completer = this.fixed ? '0' : '_';
 
     if (this.prefix) {
       retorno = this.removingPrefix(retorno);
@@ -107,7 +107,7 @@ export class HashMask {
 
     retorno = this.removingCompleterFromStart(retorno, completer);
 
-    return retorno || (this.fixed ? "0" : "");
+    return retorno || (this.fixed ? '0' : '');
   }
 
   numberToText(input: string) {
@@ -117,7 +117,7 @@ export class HashMask {
       if (input.length <= this.fractionDigits) {
         retorno = this.formatDecimal(
           input,
-          this.fixed ? "0" : "_",
+          this.fixed ? '0' : '_',
           this.decimalSeparator
         );
       } else {
@@ -137,19 +137,19 @@ export class HashMask {
   }
 
   formatToNumber(input: string) {
-    let retorno = "0";
+    let retorno = '0';
     let value = this.textToNumber(input);
 
     if (!isNaN(parseInt(value))) {
       if (value.length <= this.fractionDigits) {
-        value = this.formatDecimal(value, "0", ".");
+        value = this.formatDecimal(value, '0', '.');
       } else {
         let lengthWithoutDecimals = value.length - this.fractionDigits;
         value = value.replace(
           new RegExp(
             `(\\d{${lengthWithoutDecimals}})(\\d{${this.fractionDigits}})`
           ),
-          "$1.$2"
+          '$1.$2'
         );
       }
 
@@ -161,9 +161,6 @@ export class HashMask {
 
   setMask(element: HTMLInputElement) {
     element.value = this.format(element.value);
-    // element["formatToNumber"] = () => {
-    // 	return this.formatToNumber(element.value);
-    // };
 
     return element;
   }

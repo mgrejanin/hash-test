@@ -14,7 +14,9 @@ module.exports = {
     filename: "[name].bundle.js",
     path: DESTINATION
   },
-
+  stats: {
+    children: false
+  },
   resolve: {
     extensions: [".ts", ".js"],
     modules: [ROOT, "node_modules"]
@@ -62,7 +64,7 @@ module.exports = {
     new HtmlWebpackPlugin({
 			cache: true,
 			title: 'Hash Test',
-			template: './index.html'
+			template: path.resolve(__dirname, 'src/index.html'),
 		})
   ],
   devtool: "cheap-module-source-map",

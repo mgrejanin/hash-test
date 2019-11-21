@@ -1,6 +1,6 @@
-import { fromEvent } from "rxjs";
-import { HashMask } from "./mask";
-import "./style.scss";
+import { fromEvent } from 'rxjs';
+import { HashMask } from './mask';
+import './style.scss';
 
 export class HashTest {
   form: HTMLFormElement;
@@ -13,54 +13,44 @@ export class HashTest {
     amanha: HTMLSpanElement;
     quinze: HTMLSpanElement;
     trinta: HTMLSpanElement;
-    noventa: HTMLSpanElement;
+    sessenta: HTMLSpanElement;
   };
 
   constructor(private hashMask: HashMask) {
-    this.form = <HTMLFormElement>document.getElementById("form");
+    this.form = <HTMLFormElement>document.getElementById('form');
     this.inputs = {
-      valor: <HTMLInputElement>document.getElementById("input_valor"),
-      qtdParcelas: <HTMLInputElement>document.getElementById("input_parcelas"),
-      mdr: <HTMLInputElement>document.getElementById("input_mdr")
+      valor: <HTMLInputElement>document.getElementById('input_valor'),
+      qtdParcelas: <HTMLInputElement>document.getElementById('input_parcelas'),
+      mdr: <HTMLInputElement>document.getElementById('input_mdr')
     };
     this.results = {
-      amanha: <HTMLSpanElement>document.getElementById("result_amanha"),
-      quinze: <HTMLSpanElement>document.getElementById("result_15-dias"),
-      trinta: <HTMLSpanElement>document.getElementById("result_30-dias"),
-      noventa: <HTMLSpanElement>document.getElementById("result_90-dias")
+      amanha: <HTMLSpanElement>document.getElementById('result_amanha'),
+      quinze: <HTMLSpanElement>document.getElementById('result_15-dias'),
+      trinta: <HTMLSpanElement>document.getElementById('result_30-dias'),
+      sessenta: <HTMLSpanElement>document.getElementById('result_60-dias')
     };
     this.setListeners();
   }
 
   setListeners() {
-    fromEvent(this.form, "input").subscribe(() => {
-      this.calculate();
+    fromEvent(this.form, 'input').subscribe(() => {
+      this.validateForm();
     });
 
-    fromEvent(this.inputs.valor, "input").subscribe(() => {
+    fromEvent(this.inputs.valor, 'input').subscribe(() => {
       this.hashMask.setMask(this.inputs.valor);
     });
   }
 
-  calculate() {
-    if (!this.validForm()) {
-      return;
-    }
-    let result = this.calcular();
-    Object.keys(this.results).map((key: string, index: number) => {
-      this.results[key].innerText = result[index];
-    });
-  }
-
   currencyFormat(valor: number) {
-    return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
+    return valor.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
       minimumFractionDigits: 2
     });
   }
 
-  calcular(): Array<string> {
+  calcular() {
     let periodos = [1, 15, 30, 60];
     let intervaloDeParcelas: Array<number> = [];
     let mdrParsed = parseFloat(this.inputs.mdr.value);
@@ -80,30 +70,32 @@ export class HashTest {
 
     // Deduzindo MDR do valor das parcelas
     vlrRecebivel = vlrRecebivel * ((100 - mdrParsed) / 100);
+    vlrRecebivel = this.currencyToInt(vlrRecebivel);
 
-    return periodos.map(periodo => {
+    let result = periodos.map(periodo => {
       return this.currencyFormat(
         intervaloDeParcelas.reduce((acc, atual) => {
           acc +=
-            (this.formatReal(vlrRecebivel) *
-              (100 - (mdrParsed / 30) * (atual - periodo))) /
-            100;
+            (vlrRecebivel * (100 - (mdrParsed / 30) * (atual - periodo))) / 100;
           return acc;
         }, 0)
       );
     });
+    Object.keys(this.results).map((key: string, index: number) => {
+      this.results[key].innerText = result[index];
+    });
+    return result;
   }
 
-  formatReal(int: number) {
-    let tmp = int.toString().replace(/([0-9]{2})$/g, ".$1");
+  currencyToInt(int: number): number {
+    let tmp = int.toString().replace(/([0-9]{2})$/g, '.$1');
     if (tmp.length > 6) {
-      tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+      tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
     }
-
     return parseFloat(tmp);
   }
 
-  validForm(): boolean {
+  validateForm() {
     if (
       !this.inputs.valor.validity.valid ||
       !this.inputs.mdr.validity.valid ||
@@ -111,7 +103,7 @@ export class HashTest {
     ) {
       return false;
     }
-    return true;
+    return this.calcular();
   }
 }
 
