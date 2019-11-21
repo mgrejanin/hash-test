@@ -42,12 +42,15 @@ export class HashTest {
     });
   }
 
-  currencyFormat(valor: number) {
-    return valor.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 2
-    });
+  validateForm() {
+    if (
+      !this.inputs.valor.validity.valid ||
+      !this.inputs.mdr.validity.valid ||
+      !this.inputs.qtdParcelas.validity.valid
+    ) {
+      return false;
+    }
+    return this.calcular();
   }
 
   calcular() {
@@ -87,23 +90,20 @@ export class HashTest {
     return result;
   }
 
+  currencyFormat(valor: number) {
+    return valor.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    });
+  }
+
   currencyToInt(int: number): number {
     let tmp = int.toString().replace(/([0-9]{2})$/g, '.$1');
     if (tmp.length > 6) {
       tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
     }
     return parseFloat(tmp);
-  }
-
-  validateForm() {
-    if (
-      !this.inputs.valor.validity.valid ||
-      !this.inputs.mdr.validity.valid ||
-      !this.inputs.qtdParcelas.validity.valid
-    ) {
-      return false;
-    }
-    return this.calcular();
   }
 }
 

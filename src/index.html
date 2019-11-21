@@ -4,30 +4,30 @@
   <body>
     <div class="container">
       <div class="container__left-panel">
-        <h2>
+        <h2 class="container__left-panel__header">
           Simule sua Antecipação
         </h2>
         <form class="form" id="form">
           <div class="form__input-container">
-            <label class="input-label">Informe o valor da venda *</label>
-            <input type="text" class="input" required id="input_valor" />
+            <label class="form__input-label">Informe o valor da venda *</label>
+            <input type="text" class="form__input" required id="input_valor" />
           </div>
 
           <div class="form__input-container">
-            <label class="input-label">Em quantas parcelas *</label>
+            <label class="form__input-label">Em quantas parcelas *</label>
             <input
               type="number"
-              class="input"
+              class="form__input"
               max="12"
               required
               id="input_parcelas"
             />
-            <span class="input-hint">Máximo de 12 parcelas</span>
+            <span class="form__input-hint">Máximo de 12 parcelas</span>
           </div>
 
           <div class="form__input-container">
-            <label class="input-label">Informe o percentual de MDR *</label>
-            <input type="number" class="input" required id="input_mdr" />
+            <label class="form__input-label">Informe o percentual de MDR *</label>
+            <input type="number" class="form__input" required id="input_mdr" />
           </div>
         </form>
       </div>

@@ -29,20 +29,14 @@ describe('main testes', () => {
   it('calcular com formulário válido', () => {
     instance = mockElements(instance);
     expect(instance.validateForm()).toEqual([
-      'R$ 132.67',
-      'R$ 135.36',
-      'R$ 138.24',
-      'R$ 144.00'
+      'R$132.67',
+      'R$135.36',
+      'R$138.24',
+      'R$144.00'
     ]);
   });
 
-  it('calcular com formulário inválido', () => {
-    instance = mockElements(instance);
-    instance.inputs.qtdParcelas.value = '20';
-    expect(instance.validateForm()).toBe(false);
-  });
-
   it('formatar para valor monetário', () => {
-      expect(instance.currencyFormat(48)).toEqual('R$ 48.00');
+      expect(instance.currencyFormat(48)).toEqual('R$48.00');
   });
 });
